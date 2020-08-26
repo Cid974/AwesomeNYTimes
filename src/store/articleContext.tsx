@@ -7,6 +7,7 @@ export interface IArticle {
 }
 
 export interface IState {
+  loading: boolean;
   keyword: string;
   hits: number;
   offset: number;
@@ -21,6 +22,7 @@ interface IContextProps {
 export const ArticleContext = React.createContext({} as IContextProps);
 
 export const initialState = {
+  loading: false,
   keyword: "",
   hits: 0,
   offset: 0,
@@ -34,6 +36,7 @@ export const initialState = {
 };
 
 export const NEW_SEARCH = "NEW_SEARCH";
+export const LOAD = "LOAD";
 export const ADD_ARTICLES = "ADD_ARTICLES";
 
 export function articleReducer(state: any, action: any) {
@@ -45,11 +48,18 @@ export function articleReducer(state: any, action: any) {
         hits: action.payload.hits,
         offset: 0,
         articles: action.payload.articles,
+        loading: !state.loading,
       };
     case ADD_ARTICLES:
       return {
         ...state,
         articles: [...state.articles, action.payload],
+        loading: !state.loading,
+      };
+    case LOAD:
+      return {
+        ...state,
+        loading: action.payload,
       };
     default:
       return initialState;

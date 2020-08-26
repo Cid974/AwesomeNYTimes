@@ -5,6 +5,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Button from "@material-ui/core/Button";
 import { apiCall, apiKey } from "../utils/constants";
 import { ArticleContext } from "../store/articleContext";
+import "../style/Search.css";
 
 const Search = () => {
   const store = useContext(ArticleContext);
@@ -39,32 +40,38 @@ const Search = () => {
   };
 
   return (
-    <div>
-      <Autocomplete
-        freeSolo
-        id="search"
-        disableClearable
-        options={save.map((option: string) => option)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Keyword"
-            margin="normal"
-            variant="outlined"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            InputProps={{ ...params.InputProps, type: "search" }}
-          />
-        )}
-      />
-      <Button
-        onClick={() => {
-          saveKeyword();
-          getArticles();
-        }}
-      >
-        Send
-      </Button>
+    <div className="Search">
+      <div className="Search_Field">
+        <Autocomplete
+          freeSolo
+          id="search"
+          disableClearable
+          options={save.map((option: string) => option)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Keyword"
+              margin="normal"
+              variant="outlined"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              InputProps={{ ...params.InputProps, type: "search" }}
+            />
+          )}
+        />
+      </div>
+      <div className="Search_Button">
+        <Button
+          variant="contained"
+          onClick={() => {
+            dispatch({ type: "LOAD", payload: true });
+            saveKeyword();
+            getArticles();
+          }}
+        >
+          Send
+        </Button>
+      </div>
     </div>
   );
 };

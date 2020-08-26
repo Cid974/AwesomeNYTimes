@@ -1,0 +1,16 @@
+.ArticlesList {
+  float: left;
+  margin: auto;
+  min-height: 20vh;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 430px) {
+  .ArticlesList {
+    float: none;
+    width: 100%;
+  }
+}
