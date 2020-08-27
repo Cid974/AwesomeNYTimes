@@ -1,0 +1,24 @@
+.Loader,
+.LoaderList {
+  width: 50%;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Loader {
+  float: left;
+}
+
+.LoaderList {
+  float: none;
+  margin: auto;
+}
+
+@media screen and (max-width: 430px) {
+  .Loader,
+  .LoaderList {
+    width: 100%;
+  }
+}

@@ -4,18 +4,3 @@
   display: inline-block;
   text-align: center;
 }
-
-.App_Loader {
-  float: left;
-  width: 50%;
-  min-height: 20vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@media screen and (max-width: 430px) {
-  .App_Loader {
-    width: 100%;
-  }
-}

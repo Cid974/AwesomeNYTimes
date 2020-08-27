@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import "./style/App.css";
+import "./style/Loader.css";
 import Search from "./components/search";
 import ArticlesList from "./components/articlesList";
 import {
@@ -17,7 +18,7 @@ function App() {
       <ArticleContext.Provider value={{ state, dispatch }}>
         <Search />
         {state.loading && state.articles.length === 1 ? (
-          <div className="App_Loader">
+          <div className="Loader">
             <CircularProgress />
           </div>
         ) : (

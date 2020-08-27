@@ -13,6 +13,13 @@ const Search = () => {
   const [save, setSave] = useState<Array<string>>(["guitar"]);
   const { dispatch } = store;
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch({ type: "LOAD", payload: true });
+    saveKeyword();
+    getArticles();
+  };
+
   const saveKeyword = () => {
     if (save.indexOf(keyword) === -1) {
       setSave((save) => [...save, keyword]);
@@ -37,38 +44,33 @@ const Search = () => {
 
   return (
     <div className="Search">
-      <div className="Search_Field">
-        <Autocomplete
-          freeSolo
-          id="search"
-          disableClearable
-          options={save.map((option: string) => option)}
-          onChange={(e, value) => setKeyword(value)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Keyword"
-              margin="normal"
-              variant="outlined"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              InputProps={{ ...params.InputProps, type: "search" }}
-            />
-          )}
-        />
-      </div>
-      <div className="Search_Button">
-        <Button
-          variant="contained"
-          onClick={() => {
-            dispatch({ type: "LOAD", payload: true });
-            saveKeyword();
-            getArticles();
-          }}
-        >
-          Send
-        </Button>
-      </div>
+      <form className="SearchForm" onSubmit={(e) => handleSubmit(e)}>
+        <div className="Search_Field">
+          <Autocomplete
+            freeSolo
+            id="search"
+            disableClearable
+            options={save.map((option: string) => option)}
+            onChange={(e, value) => setKeyword(value)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Keyword"
+                margin="normal"
+                variant="outlined"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                InputProps={{ ...params.InputProps, type: "search" }}
+              />
+            )}
+          />
+        </div>
+        <div className="Search_Button">
+          <Button variant="contained" type="submit">
+            Send
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

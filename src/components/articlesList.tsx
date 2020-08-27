@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import axios from "axios";
-// import List from "@material-ui/core/List";
 import { ArticleContext } from "../store/articleContext";
 import Article from "./article";
-import { ListItem, Button } from "@material-ui/core";
+import { ListItem, Button, CircularProgress } from "@material-ui/core";
 import "../style/ArticlesList.css";
+import "../style/Loader.css";
 import { pageCall, apiKey, formatArticle } from "../utils/constants";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
 
@@ -53,23 +53,20 @@ const ArticlesList = () => {
         <span>No articles searched for yet!</span>
       ) : (
         <div className="ListContainer">
-          <FixedSizeList
-            height={400}
-            width="100%"
-            itemSize={35}
-            itemCount={state.articles.length}
-          >
-            {renderRow}
-          </FixedSizeList>
-          {/* <List className="ArticlesList_Filled">
-            {state.articles.map((item) => {
-              return (
-                <ListItem key={item.id}>
-                  <Article text={item.abstract} url={item.url} />
-                </ListItem>
-              );
-            })}
-          </List> */}
+          {state.loading ? (
+            <div className="LoaderList">
+              <CircularProgress />
+            </div>
+          ) : (
+            <FixedSizeList
+              height={400}
+              width="100%"
+              itemSize={35}
+              itemCount={state.articles.length}
+            >
+              {renderRow}
+            </FixedSizeList>
+          )}
           {state.articles.length <= state.hits ? (
             <div className="LoadButton">
               <Button variant="contained" onClick={() => handleNewPage()}>
