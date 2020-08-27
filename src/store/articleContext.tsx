@@ -2,7 +2,7 @@ import React from "react";
 
 export interface IArticle {
   id: string;
-  abstract: string;
+  lead: string;
   url: string;
 }
 
@@ -29,7 +29,7 @@ export const initialState = {
   articles: [
     {
       id: "",
-      abstract: "",
+      lead: "",
       url: "",
     },
   ],
@@ -53,7 +53,8 @@ export function articleReducer(state: any, action: any) {
     case ADD_ARTICLES:
       return {
         ...state,
-        articles: [...state.articles, action.payload],
+        offset: action.payload.offset,
+        articles: [...state.articles, ...action.payload.articles],
         loading: !state.loading,
       };
     case LOAD:

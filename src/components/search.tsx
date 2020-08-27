@@ -3,7 +3,7 @@ import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Button from "@material-ui/core/Button";
-import { apiCall, apiKey } from "../utils/constants";
+import { firstCall, apiKey, formatArticle } from "../utils/constants";
 import { ArticleContext } from "../store/articleContext";
 import "../style/Search.css";
 
@@ -14,29 +14,25 @@ const Search = () => {
   const { dispatch } = store;
 
   const saveKeyword = () => {
-    if (keyword === save[0]) {
+    if (save.indexOf(keyword) === -1) {
       setSave((save) => [...save, keyword]);
     }
   };
 
   const getArticles = async () => {
-    const results = await axios(apiCall(keyword, apiKey));
+    const results = await axios(firstCall(keyword, apiKey));
     const response = results.data.response;
 
-    console.log(response);
     const hits = response.meta.hits;
     const offset = response.meta.offset;
-    const articles = response.docs.map((item: any) => {
-      const data = { id: "", abstract: "", url: "" };
-      data.id = item._id;
-      data.abstract = item.abstract;
-      data.url = item.web_url;
-      return data;
-    });
+    const articles = formatArticle(response.docs);
     console.log(hits);
     console.log(offset);
     console.log(articles);
-    dispatch({ type: "NEW_SEARCH", payload: { hits, offset, articles } });
+    dispatch({
+      type: "NEW_SEARCH",
+      payload: { keyword, hits, offset, articles },
+    });
   };
 
   return (
@@ -47,6 +43,7 @@ const Search = () => {
           id="search"
           disableClearable
           options={save.map((option: string) => option)}
+          onChange={(e, value) => setKeyword(value)}
           renderInput={(params) => (
             <TextField
               {...params}

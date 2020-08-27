@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <ArticleContext.Provider value={{ state, dispatch }}>
         <Search />
-        {state.loading ? (
+        {state.loading && state.articles.length === 1 ? (
           <div className="App_Loader">
             <CircularProgress />
           </div>

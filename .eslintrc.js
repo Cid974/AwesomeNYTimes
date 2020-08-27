@@ -23,6 +23,14 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint"],
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      rules: {
+        "@typescript-eslint/no-unused-vars": [2, { args: "none" }],
+      },
+    },
+  ],
   rules: {},
   settings: {
     react: {
