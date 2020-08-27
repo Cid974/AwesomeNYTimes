@@ -16,7 +16,7 @@
   margin: auto;
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 560px) {
   .Loader,
   .LoaderList {
     width: 100%;

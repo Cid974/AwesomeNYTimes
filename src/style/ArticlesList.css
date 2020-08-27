@@ -18,7 +18,11 @@
   padding-top: 2vh;
 }
 
-@media screen and (max-width: 430px) {
+.Link {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 560px) {
   .ArticlesList {
     float: none;
     width: 100%;

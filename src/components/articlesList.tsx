@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import { ArticleContext } from "../store/articleContext";
-import Article from "./article";
+import { Link, Route, useRouteMatch } from "react-router-dom";
 import { ListItem, Button, CircularProgress } from "@material-ui/core";
+import { FixedSizeList, ListChildComponentProps } from "react-window";
+
+import { ArticleContext } from "../store/articleContext";
+import Details from "../pages/Details";
+import { pageCall, apiKey } from "../utils/constants";
+import { formatArticle } from "../utils/format";
+
 import "../style/ArticlesList.css";
 import "../style/Loader.css";
-import { pageCall, apiKey, formatArticle } from "../utils/constants";
-import { FixedSizeList, ListChildComponentProps } from "react-window";
 
 const ArticlesList = () => {
   const data = useContext(ArticleContext);
@@ -32,6 +36,7 @@ const ArticlesList = () => {
 
   const renderRow = (props: ListChildComponentProps) => {
     const { index, style } = props;
+    const match = useRouteMatch();
 
     const top = style.top! as number;
 
@@ -39,10 +44,16 @@ const ArticlesList = () => {
 
     return (
       <ListItem style={{ ...style, top: padding }} key={index}>
-        <Article
-          text={state.articles[index].lead}
-          url={state.articles[index].url}
-        />
+        <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
+          <Link
+            to={`${match.path}${state.articles[index].id}`}
+            className="Link"
+          >
+            {state.articles[index].headline}
+          </Link>
+        </div>
+
+        <Route path={`${match.path}/:articleId`} component={Details} />
       </ListItem>
     );
   };
@@ -53,24 +64,23 @@ const ArticlesList = () => {
         <span>No articles searched for yet!</span>
       ) : (
         <div className="ListContainer">
-          {state.loading ? (
-            <div className="LoaderList">
-              <CircularProgress />
-            </div>
-          ) : (
-            <FixedSizeList
-              height={400}
-              width="100%"
-              itemSize={35}
-              itemCount={state.articles.length}
-            >
-              {renderRow}
-            </FixedSizeList>
-          )}
+          <FixedSizeList
+            height={400}
+            width="100%"
+            itemSize={50}
+            itemCount={state.articles.length}
+          >
+            {renderRow}
+          </FixedSizeList>
           {state.articles.length <= state.hits ? (
             <div className="LoadButton">
-              <Button variant="contained" onClick={() => handleNewPage()}>
-                Load More
+              <Button
+                variant="contained"
+                onClick={() => handleNewPage()}
+                disabled={state.loading}
+              >
+                {state.loading && <CircularProgress size={20} />}
+                {!state.loading && "Load More"}
               </Button>
             </div>
           ) : null}

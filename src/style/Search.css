@@ -22,7 +22,7 @@
   padding: 2vh;
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 560px) {
   .Search {
     width: 100%;
     float: none;

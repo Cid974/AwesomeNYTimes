@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import TextField from "@material-ui/core/TextField";
+import { TextField, Button } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import Button from "@material-ui/core/Button";
-import { firstCall, apiKey, formatArticle } from "../utils/constants";
 import { ArticleContext } from "../store/articleContext";
+import { firstCall, apiKey } from "../utils/constants";
+import { formatArticle } from "../utils/format";
+
 import "../style/Search.css";
 
 const Search = () => {
@@ -30,12 +31,11 @@ const Search = () => {
     const results = await axios(firstCall(keyword, apiKey));
     const response = results.data.response;
 
+    console.log(response);
+
     const hits = response.meta.hits;
     const offset = response.meta.offset;
     const articles = formatArticle(response.docs);
-    console.log(hits);
-    console.log(offset);
-    console.log(articles);
     dispatch({
       type: "NEW_SEARCH",
       payload: { keyword, hits, offset, articles },

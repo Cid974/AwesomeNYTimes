@@ -1,0 +1,14 @@
+.Article {
+  padding-bottom: 5vh;
+}
+
+.Card {
+  width: 60%;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  margin: auto;
+}
+
+.Media {
+  height: 0;
+}

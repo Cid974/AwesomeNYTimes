@@ -2,8 +2,10 @@ import React from "react";
 
 export interface IArticle {
   id: string;
+  headline: string;
   lead: string;
   url: string;
+  img: string;
 }
 
 export interface IState {
@@ -29,8 +31,10 @@ export const initialState = {
   articles: [
     {
       id: "",
+      headline: "",
       lead: "",
       url: "",
+      img: "",
     },
   ],
 };

@@ -1,24 +1,48 @@
 import React from "react";
+import { Card, CardHeader, CardContent } from "@material-ui/core";
+import ImageIcon from "@material-ui/icons/Image";
+
+import "../style/Article.css";
 
 type ArticleProps = {
-  text: string;
+  headline: string;
+  img: string;
+  lead: string;
   url: string;
 };
 
-const Article = ({ text, url }: ArticleProps) => {
-  let display = "";
+const Article = (props: ArticleProps) => {
   const limit = 30;
+  let display;
 
-  if (text.length > 1) {
-    display = text.length <= limit ? text : text.substr(0, limit) + " ...more";
+  if (props.lead.length > 1) {
+    display =
+      props.lead.length <= limit ? (
+        <span>{props.lead}</span>
+      ) : (
+        <span>
+          {props.lead.substr(0, limit)}
+          <a href={props.url} target="_blank" rel="noopener noreferrer">
+            ...more
+          </a>
+        </span>
+      );
   } else {
-    display = "No Text preview available.";
+    display = <span>No Text preview available.</span>;
   }
 
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer">
-      <div>{display}</div>
-    </a>
+    <div className="Article">
+      <Card className="Card">
+        <CardHeader title={props?.headline} />
+        {props?.img === "empty" ? (
+          <ImageIcon fontSize="large" />
+        ) : (
+          <img src={props?.img} />
+        )}
+        <CardContent>{display}</CardContent>
+      </Card>
+    </div>
   );
 };
 
