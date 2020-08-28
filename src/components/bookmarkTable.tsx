@@ -23,7 +23,11 @@ const BookmarkTable = () => {
     const handleBookmark = () => {
       const stateArticle = [...state.articles];
 
-      stateArticle[index].marked = !stateArticle[index].marked;
+      const articleIndex = stateArticle.findIndex(
+        (article: IArticle) => article.id === state.bookmarks[index].id
+      );
+
+      stateArticle[articleIndex].marked = !stateArticle[articleIndex].marked;
 
       const id = state.bookmarks[index].id;
       const newMark = state.bookmarks.filter(
@@ -46,7 +50,7 @@ const BookmarkTable = () => {
             alignItems: "center",
           }}
         >
-          <Link to={`${match.path}/${state.articles[index].id}`}>
+          <Link to={`${match.path}/${state.bookmarks[index].id}`}>
             {state.bookmarks[index].headline}
           </Link>
           <IconButton onClick={() => handleBookmark()}>

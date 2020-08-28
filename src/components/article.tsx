@@ -60,7 +60,7 @@ const Article = (props: ArticleProps) => {
     };
 
     if (marked) {
-      const newMark = state.articles.filter(
+      const newMark = state.bookmarks.filter(
         (article: IArticle) => article.id !== id
       );
 
