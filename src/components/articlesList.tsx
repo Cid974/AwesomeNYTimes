@@ -20,6 +20,7 @@ const ArticlesList = (props: ArticleListProps) => {
   const data = useContext(ArticleContext);
   const { state, dispatch } = data;
   const { articles } = props;
+  const match = useRouteMatch();
 
   const getNewArticles = async () => {
     const page = state.offset === 0 ? 1 : state.offset / 10 + 1;
@@ -40,7 +41,6 @@ const ArticlesList = (props: ArticleListProps) => {
 
   const renderRow = (props: ListChildComponentProps) => {
     const { index, style } = props;
-    const match = useRouteMatch();
 
     const top = style.top! as number;
 

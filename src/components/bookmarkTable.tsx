@@ -11,10 +11,10 @@ import "../style/Table.css";
 const BookmarkTable = () => {
   const data = useContext(ArticleContext);
   const { state, dispatch } = data;
+  const match = useRouteMatch();
 
   const renderRow = (props: ListChildComponentProps) => {
     const { index, style } = props;
-    const match = useRouteMatch();
 
     const top = style.top! as number;
 
