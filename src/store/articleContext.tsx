@@ -6,6 +6,7 @@ export interface IArticle {
   lead: string;
   url: string;
   img: string;
+  marked: boolean;
 }
 
 export interface IState {
@@ -14,6 +15,7 @@ export interface IState {
   hits: number;
   offset: number;
   articles: Array<IArticle>;
+  bookmarks: Array<IArticle>;
 }
 
 interface IContextProps {
@@ -28,20 +30,14 @@ export const initialState = {
   keyword: "",
   hits: 0,
   offset: 0,
-  articles: [
-    {
-      id: "",
-      headline: "",
-      lead: "",
-      url: "",
-      img: "",
-    },
-  ],
+  articles: [],
+  bookmarks: [],
 };
 
 export const NEW_SEARCH = "NEW_SEARCH";
-export const LOAD = "LOAD";
 export const ADD_ARTICLES = "ADD_ARTICLES";
+export const MARK = "MARK";
+export const LOAD = "LOAD";
 
 export function articleReducer(state: any, action: any) {
   switch (action.type) {
@@ -60,6 +56,15 @@ export function articleReducer(state: any, action: any) {
         offset: action.payload.offset,
         articles: [...state.articles, ...action.payload.articles],
         loading: !state.loading,
+      };
+    case MARK:
+      return {
+        ...state,
+        articles: [...action.payload.articles],
+        bookmarks:
+          action.payload.bookmark.length < 1
+            ? []
+            : [...action.payload.bookmark],
       };
     case LOAD:
       return {

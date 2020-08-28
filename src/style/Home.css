@@ -1,4 +1,16 @@
 .Home {
   padding-top: 2vh;
-  padding-bottom: 5vh;
+  padding-bottom: 3vh;
+}
+
+.Description {
+  margin: auto;
+  width: 80%;
+  font-size: 3vmin;
+}
+
+@media screen and (max-width: 560px) {
+  .Description {
+    font-size: 4vmin;
+  }
 }

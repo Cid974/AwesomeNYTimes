@@ -1,28 +1,38 @@
-import React from "react";
-import { Card, CardHeader, CardContent } from "@material-ui/core";
+import React, { useContext } from "react";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  IconButton,
+  CardActions,
+} from "@material-ui/core";
 import ImageIcon from "@material-ui/icons/Image";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 import "../style/Article.css";
+import { IArticle, ArticleContext } from "../store/articleContext";
 
 type ArticleProps = {
-  headline: string;
-  img: string;
-  lead: string;
-  url: string;
+  article: IArticle;
+  source: string;
 };
 
 const Article = (props: ArticleProps) => {
+  const data = useContext(ArticleContext);
+  const { state, dispatch } = data;
+  const { id, lead, headline, url, img, marked } = props.article;
   const limit = 30;
   let display;
 
-  if (props.lead.length > 1) {
+  if (lead.length > 1) {
     display =
-      props.lead.length <= limit ? (
-        <span>{props.lead}</span>
+      lead.length <= limit ? (
+        <span>{lead}</span>
       ) : (
         <span>
-          {props.lead.substr(0, limit)}
-          <a href={props.url} target="_blank" rel="noopener noreferrer">
+          {lead.substr(0, limit)}
+          <a href={url} target="_blank" rel="noopener noreferrer">
             ...more
           </a>
         </span>
@@ -31,16 +41,59 @@ const Article = (props: ArticleProps) => {
     display = <span>No Text preview available.</span>;
   }
 
+  const handleBookmark = () => {
+    const stateArticle = [...state.articles];
+
+    const index = stateArticle.findIndex(
+      (article: IArticle) => article.id === id
+    );
+
+    stateArticle[index].marked = !stateArticle[index].marked;
+
+    const bookmark = {
+      id,
+      headline,
+      lead,
+      url,
+      img,
+      marked: true,
+    };
+
+    if (marked) {
+      const newMark = state.articles.filter(
+        (article: IArticle) => article.id !== id
+      );
+
+      dispatch({
+        type: "MARK",
+        payload: { articles: stateArticle, bookmark: newMark },
+      });
+    } else {
+      const newMark =
+        state.bookmarks.length < 1
+          ? [bookmark]
+          : [...state.bookmarks, bookmark];
+
+      dispatch({
+        type: "MARK",
+        payload: { articles: stateArticle, bookmark: newMark },
+      });
+    }
+  };
+
   return (
     <div className="Article">
       <Card className="Card">
-        <CardHeader title={props?.headline} />
-        {props?.img === "empty" ? (
-          <ImageIcon fontSize="large" />
-        ) : (
-          <img src={props?.img} />
-        )}
+        <CardHeader title={headline} />
+        {img === "empty" ? <ImageIcon fontSize="large" /> : <img src={img} />}
         <CardContent>{display}</CardContent>
+        {props.source === "List" ? (
+          <CardActions>
+            <IconButton onClick={() => handleBookmark()}>
+              {marked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            </IconButton>
+          </CardActions>
+        ) : null}
       </Card>
     </div>
   );

@@ -16,6 +16,7 @@ export const formatArticle = (data: any) => {
         item.lead_paragraph.length > 1 ? item.lead_paragraph : item.abstract,
       url: item.web_url,
       img: thumbnail,
+      marked: false,
     };
 
     return format;

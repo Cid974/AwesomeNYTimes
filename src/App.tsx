@@ -6,8 +6,10 @@ import {
   articleReducer,
   initialState,
 } from "./store/articleContext";
+
 import Home from "./pages/Home";
 import Details from "./pages/Details";
+import BookmarkList from "./pages/BookmarkList";
 
 import "./style/App.css";
 
@@ -16,12 +18,15 @@ function App() {
 
   return (
     <div className="App">
-      <h2 className={"Title"}>Awesome New York Times</h2>
+      <h1 className={"Title"}>Awesome New York Times</h1>
       <ArticleContext.Provider value={{ state, dispatch }}>
         <Router>
           <Switch>
+            <Route path={"/bookmarks"}>
+              <BookmarkList />
+            </Route>
             <Route path={"/:articleId"}>
-              <Details />
+              <Details source="List" />
             </Route>
             <Route path="/">
               <Home />

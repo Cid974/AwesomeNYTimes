@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { Link, Route, useRouteMatch } from "react-router-dom";
-import { ListItem, Button, CircularProgress } from "@material-ui/core";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
+import { ListItem, Button, CircularProgress } from "@material-ui/core";
 
-import { ArticleContext } from "../store/articleContext";
+import { ArticleContext, IArticle } from "../store/articleContext";
 import Details from "../pages/Details";
 import { pageCall, apiKey } from "../utils/constants";
 import { formatArticle } from "../utils/format";
@@ -12,9 +12,14 @@ import { formatArticle } from "../utils/format";
 import "../style/ArticlesList.css";
 import "../style/Loader.css";
 
-const ArticlesList = () => {
+type ArticleListProps = {
+  articles: Array<IArticle>;
+};
+
+const ArticlesList = (props: ArticleListProps) => {
   const data = useContext(ArticleContext);
   const { state, dispatch } = data;
+  const { articles } = props;
 
   const getNewArticles = async () => {
     const page = state.offset === 0 ? 1 : state.offset / 10 + 1;
@@ -25,7 +30,6 @@ const ArticlesList = () => {
     const response = result.data.response;
     const offset = response.meta.offset;
     const articles = formatArticle(response.docs);
-    console.log(response);
     dispatch({ type: "ADD_ARTICLES", payload: { offset, articles } });
   };
 
@@ -44,7 +48,7 @@ const ArticlesList = () => {
 
     return (
       <ListItem style={{ ...style, top: padding }} key={index}>
-        <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
+        <div>
           <Link
             to={`${match.path}${state.articles[index].id}`}
             className="Link"
@@ -60,7 +64,7 @@ const ArticlesList = () => {
 
   return (
     <div className="ArticlesList">
-      {state.articles.length === 1 ? (
+      {articles.length < 1 ? (
         <span>No articles searched for yet!</span>
       ) : (
         <div className="ListContainer">
@@ -68,11 +72,11 @@ const ArticlesList = () => {
             height={400}
             width="100%"
             itemSize={50}
-            itemCount={state.articles.length}
+            itemCount={articles.length}
           >
             {renderRow}
           </FixedSizeList>
-          {state.articles.length <= state.hits ? (
+          {articles.length <= state.hits ? (
             <div className="LoadButton">
               <Button
                 variant="contained"

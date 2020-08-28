@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { TextField, Button } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+
 import { ArticleContext } from "../store/articleContext";
 import { firstCall, apiKey } from "../utils/constants";
 import { formatArticle } from "../utils/format";
@@ -30,8 +31,6 @@ const Search = () => {
   const getArticles = async () => {
     const results = await axios(firstCall(keyword, apiKey));
     const response = results.data.response;
-
-    console.log(response);
 
     const hits = response.meta.hits;
     const offset = response.meta.offset;
