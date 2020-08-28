@@ -31,3 +31,7 @@ In hindsight, although I learned a lot from that experience, I probably would ha
 ## Bonuses
 
 Given my recent experience, I decided to try and make it in React Typescript, with Hooks and functional components.
+
+Although I am familiar with the concept, I lack hands-on experience with Redux, so I used React Context instead (which I used in my latest professional mission).
+
+I made minimal responsive adjustments to the design as well.
