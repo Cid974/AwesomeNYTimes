@@ -14,12 +14,13 @@ You will also see any lint errors in the console.
 
 ## Decisions regarding the UI/Flow
 
-As there was no specifications for the UI behavior regarding the listing, but only for the 30 char limit of Article body, I decided to show the title of the article (given freely from API) and show the Article substract with 30 char limit on the details page. This is something that could easily be adjusted to match UI specifications.
+As there was no specifications for the UI behavior regarding the listing, but only for the 30 char limit of Article body, I decided to show the title of the article (given freely from API) and show the Article substract with 30 char limit on the details page.<br />
+This is something that could easily be adjusted to match UI specifications.
 
 ### Regarding Pagination
 
-I wanted to try something different from a table, and given the huge amounts of hits some keywords return, I thought a virtualized table was a good idea.
-[react-window](https://github.com/bvaughn/react-window) was exactly what I was thinking about.
+I wanted to try something different from a table, and given the huge amounts of hits some keywords return, I thought a virtualized table was a good idea.<br />
+[react-window](https://github.com/bvaughn/react-window) was exactly what I was thinking about.<br />
 In hindsight, although I learned a lot from that experience, I probably would have had less trouble overall using a Table.
 
 ## Options
