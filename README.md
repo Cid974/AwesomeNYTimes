@@ -1,5 +1,35 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Subject
+
+The subject is to make a tiny app that retrieves all existing article from The New York Times, using their API. It should be a SPA made with React, and meet the following requirements:
+
+**Required** Loading Articles
+
+Find all articles containing a keyword entered by the user.
+Each article should show up to 30 characters of text, remainder should be displayed as `...more`
+Click the link to go to the original page.
+
+**Option 1** Bookmark
+
+Enable a bookmark feature on the articles you load.
+
+**Option 2** Pagination
+
+10 article per page, and you should be able to load the next 10 when clicking the `Load more` button.
+
+**Option 3** Display Image
+
+Display the image of the article
+
+**Bonus** Make use of the following:
+
+- Hook
+- Typescript
+- Redux
+- Reddux Middleware
+- Responsive Design
+
 ## How to start
 
 After cloning the project, run:
@@ -25,11 +55,11 @@ In hindsight, although I learned a lot from that experience, I probably would ha
 
 ## Options
 
-- Option 1 was completed
-- Option 2 was completed
-- Option 3 was completed
+- [x] Option 1
+- [x] Option 2
+- [x] Option 3
 
-## Bonuses
+## Bonus
 
 Given my recent experience, I decided to try and make it in React Typescript, with Hooks and functional components.
 
