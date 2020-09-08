@@ -4,25 +4,25 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The subject is to make a tiny app that retrieves all existing article from The New York Times, using their API. It should be a SPA made with React, and meet the following requirements:
 
-**Required** Loading Articles
+### Required : Loading Articles
 
 Find all articles containing a keyword entered by the user.
 Each article should show up to 30 characters of text, remainder should be displayed as `...more`
 Click the link to go to the original page.
 
-**Option 1** Bookmark
+### Option 1 : Bookmark
 
 Enable a bookmark feature on the articles you load.
 
-**Option 2** Pagination
+### Option 2 : Pagination
 
 10 article per page, and you should be able to load the next 10 when clicking the `Load more` button.
 
-**Option 3** Display Image
+### Option 3 : Display Image
 
 Display the image of the article
 
-**Bonus** Make use of the following:
+### Bonus : Make use of the following:
 
 - Hook
 - Typescript
